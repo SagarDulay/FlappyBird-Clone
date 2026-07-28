@@ -9,7 +9,9 @@ public class PipeObstacle : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, Random.Range(-yRange, yRange), 0); 
+        transform.position = new Vector3(transform.position.x, Random.Range(-yRange, yRange), 0);
+
+        Destroy(gameObject, 12f);
     }
 
     

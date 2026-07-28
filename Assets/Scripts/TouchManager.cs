@@ -8,6 +8,8 @@ public class TouchManager : MonoBehaviour
 
     private Vector2 touchStartedPos;
     private Vector2 touchEndedPos;
+
+
     void Update()
     {
         if (Input.touchCount > 0)
@@ -36,5 +38,16 @@ public class TouchManager : MonoBehaviour
     {
         birdRigidbody.linearVelocity = Vector2.zero;
         birdRigidbody.AddForce(Vector2.up * jumpForce);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameManager.currentScore++;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        FindAnyObjectByType<GameManager>().ShowGameOverScreen();
+        gameObject.SetActive(false);
     }
 }
