@@ -16,6 +16,8 @@ public class APITest : MonoBehaviour
 
     public List<UserScoreEntry> allDownloadedScores = new List<UserScoreEntry>();
 
+    [SerializeField] private UILeaderboardEntry entryPrefab;
+    [SerializeField] private Transform contentHolder;
     void Start()
     {
         StartCoroutine(LoadHighestScore());
@@ -120,7 +122,25 @@ public class APITest : MonoBehaviour
 
         allDownloadedScores.Sort((a, b) => b.score.CompareTo(a.score));
 
+        
+        foreach (Transform child in contentHolder)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach (var entry in allDownloadedScores)
-            Debug.Log($"{entry.userName}: {entry.score}");
+        {
+            UILeaderboardEntry clonedEntry = Instantiate(entryPrefab, contentHolder);
+            clonedEntry.userNameText.text = entry.userName;
+            clonedEntry.scoreValueText.text = entry.score.ToString();
+            clonedEntry.gameObject.SetActive(true);
+        }
     }
+}
+
+[System.Serializable]
+public class UserScoreEntry
+{
+    public string userName;
+    public int score;
 }

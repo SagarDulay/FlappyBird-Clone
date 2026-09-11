@@ -11,11 +11,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private APITest api;
 
-    void Start()
+    [SerializeField] private APITest api;
+    [SerializeField] private Rigidbody2D birdRigidbody;
+
+    public void StartGame()
     {
-        InvokeRepeating("SpawnPipes", 1f, timeBetweenPipes);
+        scoreText.gameObject.SetActive(true);
+        birdRigidbody.constraints = RigidbodyConstraints2D.None;
+        InvokeRepeating("SpawnPipes", 2f, timeBetweenPipes);
     }
 
     void SpawnPipes()
@@ -42,10 +46,5 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    [System.Serializable]
-    public class UserScoreEntry
-    {
-        public string userName;
-        public int score;
-    }
+    
 }
